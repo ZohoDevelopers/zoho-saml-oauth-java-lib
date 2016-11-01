@@ -28,6 +28,13 @@ dependencies {
 	compile group: 'org.apache.tomcat', name: 'tomcat-coyote', version: '9.0.0.M11'
 
 }
+task downloadDep(type: Copy) {
+	group 'ZohoPlatform'
+	description 'Download dependency jars into lib folder for running the project'
+ 
+	from configurations.runtime
+	into 'WebContent/WEB-INF/lib/'
+}
 sourceSets{
 	main.java.srcDir "src"
 	main.java.exclude "com/test/**"
@@ -66,6 +73,9 @@ task bundle_OAUTH(type: Zip, dependsOn:jarOAUTH){
 }
 
 task Bundle(dependsOn:['bundle_SAML','bundle_OAUTH']){
+	group 'ZohoPlatform'
+ 	description 'Generate SAML and OAUTH2 SDK'
+ 
 	doFirst{println "Bundling files for SDK"} 
 	doLast {
 		bundle_SAML.execute();
