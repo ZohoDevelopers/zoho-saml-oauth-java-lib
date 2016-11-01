@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<samlp:AuthnRequest
+    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+    xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+    ID="--ID--"
+    Version="2.0"
+    IssueInstant="--IssueInstant--"
+    ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    ProviderName="--ProviderName--"
+    IsPassive="false"
+    Destination="--Destination--"
+    AssertionConsumerServiceURL="--ACSURL--">
+        <saml:Issuer>zoho.com</saml:Issuer>
+        <samlp:NameIDPolicy AllowCreate="true"/>
+</samlp:AuthnRequest>
+<!-- $Id$-->
