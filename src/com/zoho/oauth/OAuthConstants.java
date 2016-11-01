@@ -41,7 +41,6 @@ public class OAuthConstants {
 
 	 static final String TOKEN = "token";	
 	
-	 static final String OAUTH_PARAMS = "OAUTH_PARAMS";
 	 static final String DISPATCH_TO = "dispatchTo";
 
 }

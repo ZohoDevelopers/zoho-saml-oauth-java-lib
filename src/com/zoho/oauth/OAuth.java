@@ -16,6 +16,7 @@ import org.apache.http.client.utils.URIBuilder;
 
 public class OAuth extends HttpServlet {
 	static String dispatchTo;
+	public static final String OAUTH_PARAMS = "OAUTH_PARAMS";
 	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException  
 	{
 		try
@@ -50,7 +51,7 @@ public class OAuth extends HttpServlet {
 					OAuthParams params = OAuthUtil.generateToken(code);
 					if(dispatchTo!=null)
 					{
-						req.setAttribute(OAuthConstants.OAUTH_PARAMS, params);
+						req.setAttribute(OAuth.OAUTH_PARAMS, params);
 				        RequestDispatcher rd =req.getRequestDispatcher(OAuth.dispatchTo);  
 				        rd.forward(req, res);
 				        return;
