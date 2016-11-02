@@ -1,9 +1,9 @@
 -------------------------
 SAML Configuration Steps
 -------------------------
-1.Include ZohoSAML.jar inside WebApp Lib
+1.Include ZohoSAML.jar
 		
-2.Add the following filter Mapping inplace of SecurityFilter
+2.Add the following filter Mapping. This works as an authentication filter for your app
 
 	<filter>
 		<filter-name>SAMLFILTER</filter-name>
@@ -63,7 +63,7 @@ SAML Configuration Steps
 -------------------------
 OAuth2 Configuration Steps
 -------------------------
-1.Include ZohoOAuth.jar inside WebApp Lib
+1.Include ZohoOAuth.jar 
 
 	
 2.Add the following Servlet mapping (Request OAuth) and configure dispatchTo init param if u need to obtain OAuth tokens in request attribute (Name : OAUTH_PARAMS)
