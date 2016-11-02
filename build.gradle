@@ -1,0 +1,86 @@
+apply plugin: 'java'
+targetCompatibility = "1.7"
+sourceCompatibility = "1.7"
+ext.dir_WEBINF= "WebContent/WEB-INF/"
+
+ext.CONF_SAML='SAMLConf/'
+ext.CONF_OAUTH='OAuthConfig/'
+
+ext.JAR_SAML = "ZohoSAML.jar"
+ext.JAR_OAUTH = "ZohoOAUTH2.jar"
+
+ext.ZIP_SAML="ZohoSAML.zip"
+ext.ZIP_OAUTH="ZohoOAUTH.zip"
+
+ext.SRC_OAUTH="com/zoho/oauth/**"
+ext.SRC_SAML="com/zoho/saml/**"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile group: 'org.json', name: 'json', version: '20160810'
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
+	compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.5'
+	compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+	compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+	compile group: 'org.apache.tomcat', name: 'tomcat-coyote', version: '9.0.0.M11'
+
+}
+task downloadDep(type: Copy) {
+	group 'ZohoPlatform'
+	description 'Download dependency jars into lib folder for running the project'
+ 
+	from configurations.runtime
+	into 'WebContent/WEB-INF/lib/'
+}
+sourceSets{
+	main.java.srcDir "src"
+	main.java.exclude "com/test/**"
+}
+task jarSAML(type: Jar, dependsOn:classes){
+	archiveName = "$JAR_SAML"
+    	from sourceSets.main.output.classesDir
+        include "$SRC_SAML"
+}
+task bundle_SAML(type: Zip, dependsOn:jarSAML){ 
+	group 'ZohoPlatform'
+	description 'Zip jar and conf files'
+ 
+	from "$jarSAML.archivePath"
+	from "$dir_WEBINF"
+	include "$CONF_SAML"
+	include "$jarSAML.archiveName"
+	archiveName "$ZIP_SAML"
+}
+
+
+task jarOAUTH(type: Jar, dependsOn:classes){
+	archiveName = "$JAR_OAUTH"
+    	from sourceSets.main.output.classesDir
+        include "$SRC_OAUTH"
+}
+task bundle_OAUTH(type: Zip, dependsOn:jarOAUTH){ 
+	group 'ZohoPlatform'
+ 	description 'Zip jar and conf files'
+ 
+	from "$jarOAUTH.archivePath"
+	from "$dir_WEBINF"
+	include "$CONF_OAUTH"
+	include "$jarOAUTH.archiveName"
+	archiveName "$ZIP_OAUTH"
+}
+
+task Bundle(dependsOn:['bundle_SAML','bundle_OAUTH']){
+	group 'ZohoPlatform'
+ 	description 'Generate SAML and OAUTH2 SDK'
+ 
+	doFirst{println "Bundling files for SDK"} 
+	doLast {
+		bundle_SAML.execute();
+		bundle_OAUTH.execute();
+	}
+}
+
+
