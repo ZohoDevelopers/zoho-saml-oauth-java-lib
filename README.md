@@ -17,15 +17,7 @@ SAML Configuration Steps
     	<filter-name>SAMLFILTER</filter-name>
     	<url-pattern>*.do</url-pattern>
   	</filter-mapping>
-  	
-	<servlet>
-		<servlet-name>samlRequest</servlet-name>
-		<servlet-class>com.zoho.saml.RequestSAML</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>samlRequest</servlet-name>
-		<url-pattern>/zoho/requestSAML</url-pattern>
-	</servlet-mapping>
+
 
 3.Add the following Servlet mapping (SAML Endpoints - Request,Consume,Logout)
 
