@@ -212,12 +212,12 @@ public class OAuthUtil {
 			{
 				if( params.getExpiryTime() - System.currentTimeMillis() < 60000L)
 				{
-					return Boolean.TRUE;
+					return Boolean.FALSE;
 				}
 
 			}
 		}
-		return Boolean.FALSE;
+		return Boolean.TRUE;
 	}
 	private static PersistenceHandler getPersistenceImplClass()
 	{
